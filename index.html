@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴퓨터 보안 수업</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333; background-color: #f4f7f6; }
+        
+        /* 헤더 스타일 */
+        header { background: #2c3e50; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; gap: 15px; margin-top: 10px; font-size: 14px; }
+        nav a { color: #ecf0f1; text-decoration: none; }
+
+        /* 섹션 공통 스타일 */
+        section { padding: 40px 20px; border-bottom: 1px solid #ddd; background: white; }
+        h2 { color: #2980b9; margin-bottom: 15px; border-left: 5px solid #2980b9; padding-left: 10px; }
+        p { margin-bottom: 15px; font-size: 16px; }
+
+        /* 갤러리 그리드 (모바일 1열) */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .gallery-item { background: #eee; height: 150px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 12px; color: #666; }
+
+        /* 푸터 스타일 */
+        footer { background: #34495e; color: #bdc3c7; padding: 30px 20px; text-align: center; font-size: 14px; }
+        .contact { margin-bottom: 10px; color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Security Class</h1>
+        <nav>
+            <a href="#intro">소개</a>
+            <a href="#info">내 수업</a>
+            <a href="#gallery">갤러리</a>
+            <a href="#contact">연락처</a>
+        </nav>
+    </header>
+
+    <section id="intro">
+        <h2>🔒 컴퓨터 보안 소개</h2>
+        <p>컴퓨터 보안은 정보 자산을 불법적인 접근, 수정, 유출로부터 보호하는 기술입니다.</p>
+        <p>모바일 시대에는 <strong>개인정보 보호</strong>와 <strong>네트워크 보안</strong>이 더욱 중요해지고 있습니다.</p>
+    </section>
+
+    <section id="info">
+        <h2>📚 내 수업 정보</h2>
+        <ul>
+            <li><strong>과목명:</strong> 현대 암호학 및 네트워크 보안</li>
+            <li><strong>강의실:</strong> 공학관 302호</li>
+            <li><strong>수업 시간:</strong> 매주 화요일 14:00 - 16:00</li>
+        </ul>
+    </section>
+
+    <section id="gallery">
+        <h2>📸 수업 갤러리</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">이미지 준비중 1</div>
+            <div class="gallery-item">이미지 준비중 2</div>
+            <div class="gallery-item">이미지 준비중 3</div>
+            <div class="gallery-item">이미지 준비중 4</div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="contact">
+            <p>📧 Email: contact@example.com</p>
+            <p>📞 Tel: 010-1234-5678</p>
+        </div>
+        <hr style="border: 0.5px solid #555; margin: 15px 0;">
+        <p>&copy; 2026 My Security Class. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
