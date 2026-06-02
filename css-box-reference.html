@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CSS 박스 모델 레퍼런스</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  background: #EDEAE3;
+  color: #1a1a1a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ── 페이지 ── */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto 10px;
+  background: #fff;
+  padding: 16mm 18mm;
+  position: relative;
+}
+
+/* ── 헤더 ── */
+.doc-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 2.5px solid #1a1a1a;
+  padding-bottom: 8px;
+  margin-bottom: 18px;
+}
+.doc-title {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.doc-meta {
+  font-size: 10px;
+  color: #999;
+  text-align: right;
+  letter-spacing: 0.06em;
+}
+
+/* ── 섹션 레이블 ── */
+.sec-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #999;
+  border-left: 2.5px solid #1a1a1a;
+  padding-left: 7px;
+  margin: 18px 0 10px;
+}
+
+/* ── 공통 그리드 ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+/* ── 카드 ── */
+.card {
+  border: 0.5px solid #ddd;
+  background: #fafaf8;
+  padding: 12px;
+  position: relative;
+}
+.card-top {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+.card-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin-bottom: 8px;
+}
+.card-prop {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  color: #555;
+  background: #eeece8;
+  padding: 2px 6px;
+  display: inline-block;
+  border-radius: 2px;
+  margin-bottom: 3px;
+  word-break: break-all;
+}
+.card-desc {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.55;
+}
+
+/* ── 구분선 ── */
+hr { border: none; border-top: 0.5px solid #e5e5e5; margin: 14px 0; }
+
+/* ── 페이지 번호 ── */
+.pg { position: absolute; bottom: 10mm; right: 18mm; font-size: 10px; color: #ccc; font-family: 'Courier New', monospace; }
+
+/* ══════════════════════════════
+   BORDER 데모 스타일
+══════════════════════════════ */
+.b-solid  { border: 3px solid   #185FA5; }
+.b-dashed { border: 3px dashed  #D85A30; }
+.b-dotted { border: 3px dotted  #3B6D11; }
+.b-double { border: 6px double  #533AB7; }
+.b-groove { border: 5px groove  #BA7517; }
+.b-ridge  { border: 5px ridge   #993556; }
+.b-inset  { border: 5px inset   #0F6E56; }
+.b-outset { border: 5px outset  #1a1a1a; }
+.b-none   { border: 3px none    #ccc; background: repeating-linear-gradient(45deg,#f0f0f0,#f0f0f0 4px,#fff 4px,#fff 10px); }
+
+/* border-radius */
+.b-radius {
+  border: 2.5px solid #185FA5;
+  border-radius: 14px;
+}
+/* 개별 방향 */
+.b-dir {
+  border-top:    3px solid #D85A30;
+  border-right:  3px dashed #3B6D11;
+  border-bottom: 3px dotted #533AB7;
+  border-left:   3px double #BA7517;
+}
+/* outline */
+.b-outline {
+  border: 2px solid #ddd;
+  outline: 3px dashed #D85A30;
+  outline-offset: 4px;
+}
+
+.b-box {
+  width: 44px; height: 28px;
+  background: #f5f5f2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #888;
+}
+
+/* ══════════════════════════════
+   MARGIN / PADDING 다이어그램
+══════════════════════════════ */
+.mp-diagram {
+  background: #FDE8DE;      /* margin 색 */
+  padding: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.mp-padding-box {
+  background: #C7DEEF;      /* padding 색 */
+  padding: 10px;
+}
+.mp-content {
+  background: #D4EAC8;      /* content 색 */
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #3B6D11;
+  white-space: nowrap;
+}
+.mp-label {
+  font-size: 9px;
+  color: #999;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.mp-dot { width: 8px; height: 8px; border-radius: 1px; display: inline-block; margin-right: 3px; vertical-align: middle; }
+
+/* 마진 개별 데모 */
+.m-demo-wrap { background: #f5f5f2; padding: 4px; }
+.m-box {
+  background: #C7DEEF;
+  font-size: 10px;
+  color: #185FA5;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+/* 패딩 개별 데모 */
+.p-box {
+  border: 1.5px solid #533AB7;
+  font-size: 10px;
+  color: #533AB7;
+  background: #f0eeff;
+  text-align: center;
+}
+
+/* ══════════════════════════════
+   BOX-SHADOW 데모
+══════════════════════════════ */
+.sh-box {
+  width: 100%;
+  height: 44px;
+  background: #fff;
+  border: 0.5px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.sh1 { box-shadow: 4px 4px 0px 0px #1a1a1a; }
+.sh2 { box-shadow: 0 4px 12px rgba(0,0,0,0.18); }
+.sh3 { box-shadow: 0 0 0 3px #185FA5; }
+.sh4 { box-shadow: inset 0 3px 8px rgba(0,0,0,0.15); }
+.sh5 { box-shadow: 4px 4px 0 #D85A30, 8px 8px 0 #533AB7; }
+.sh6 { box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.12); }
+.sh7 { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3B6D11; }
+.sh8 { box-shadow: -4px -4px 8px rgba(255,255,255,0.8), 4px 4px 8px rgba(0,0,0,0.12); background: #EDEAE3; }
+
+@media print {
+  body { background: #fff; }
+  .page { margin: 0; }
+  .page + .page { page-break-before: always; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ PAGE 1 ═══════ -->
+<div class="page">
+  <div class="doc-header">
+    <div class="doc-title">CSS 박스 모델 레퍼런스</div>
+    <div class="doc-meta">Border · Margin · Padding · Box-Shadow</div>
+  </div>
+
+  <!-- ① BORDER 종류 -->
+  <div class="sec-label">① Border 경계선 종류</div>
+  <div class="grid-3">
+
+    <div class="card">
+      <div class="card-top">solid</div>
+      <div class="card-demo"><div class="b-box b-solid">solid</div></div>
+      <div class="card-prop">border: 3px solid #185FA5</div>
+      <div class="card-desc">실선. 가장 기본적이고 많이 쓰이는 경계선.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">dashed</div>
+      <div class="card-demo"><div class="b-box b-dashed">dashed</div></div>
+      <div class="card-prop">border: 3px dashed #D85A30</div>
+      <div class="card-desc">긴 대시(—) 형태. 점선보다 시각적으로 강조됨.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">dotted</div>
+      <div class="card-demo"><div class="b-box b-dotted">dotted</div></div>
+      <div class="card-prop">border: 3px dotted #3B6D11</div>
+      <div class="card-desc">작은 점(·)으로 이루어진 선. 부드럽고 가벼운 느낌.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">double</div>
+      <div class="card-demo"><div class="b-box b-double">double</div></div>
+      <div class="card-prop">border: 6px double #533AB7</div>
+      <div class="card-desc">두 줄의 실선. border-width를 최소 3px 이상 줘야 보임.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">groove</div>
+      <div class="card-demo"><div class="b-box b-groove">groove</div></div>
+      <div class="card-prop">border: 5px groove #BA7517</div>
+      <div class="card-desc">홈이 파인 3D 효과. 브라우저가 명암으로 처리.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">ridge</div>
+      <div class="card-demo"><div class="b-box b-ridge">ridge</div></div>
+      <div class="card-prop">border: 5px ridge #993556</div>
+      <div class="card-desc">groove의 반대. 튀어나온 융기 효과.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">inset</div>
+      <div class="card-demo"><div class="b-box b-inset">inset</div></div>
+      <div class="card-prop">border: 5px inset #0F6E56</div>
+      <div class="card-desc">요소 전체가 눌린 것처럼 보이는 3D 효과.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">outset</div>
+      <div class="card-demo"><div class="b-box b-outset">outset</div></div>
+      <div class="card-prop">border: 5px outset #1a1a1a</div>
+      <div class="card-desc">inset의 반대. 요소가 솟아오른 3D 효과.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">none / hidden</div>
+      <div class="card-demo"><div class="b-box b-none">none</div></div>
+      <div class="card-prop">border: none</div>
+      <div class="card-desc">경계선 없음. hidden은 표(table) 셀에서 충돌 처리용.</div>
+    </div>
+
+  </div>
+
+  <!-- ② 방향별 · radius · outline -->
+  <div class="sec-label">② 방향별 지정 · border-radius · outline</div>
+  <div class="grid-3">
+
+    <div class="card">
+      <div class="card-top">방향별 개별 지정</div>
+      <div class="card-demo"><div class="b-box b-dir" style="width:54px;height:34px;"></div></div>
+      <div class="card-prop">border-top: solid<br>border-right: dashed<br>border-bottom: dotted<br>border-left: double</div>
+      <div class="card-desc">top·right·bottom·left 각각 스타일·굵기·색상을 다르게 설정 가능.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">border-radius</div>
+      <div class="card-demo"><div class="b-box b-radius" style="width:60px;height:34px;border-radius:14px;">round</div></div>
+      <div class="card-prop">border-radius: 14px<br>border-radius: 50% (원형)</div>
+      <div class="card-desc">모서리를 둥글게. 50%로 설정하면 원형. 각 모서리 개별 지정도 가능.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">outline</div>
+      <div class="card-demo"><div class="b-box b-outline" style="width:54px;height:34px;">out</div></div>
+      <div class="card-prop">outline: 3px dashed #D85A30<br>outline-offset: 4px</div>
+      <div class="card-desc">border와 달리 레이아웃 공간을 차지하지 않음. 포커스 링에 주로 사용.</div>
+    </div>
+
+  </div>
+
+  <div class="pg">p.1 / 2</div>
+</div>
+
+
+<!-- ═══════ PAGE 2 ═══════ -->
+<div class="page">
+  <div class="doc-header">
+    <div class="doc-title">CSS 박스 모델 레퍼런스</div>
+    <div class="doc-meta">Margin · Padding · Box-Shadow</div>
+  </div>
+
+  <!-- ③ MARGIN / PADDING 구조 다이어그램 -->
+  <div class="sec-label">③ Margin &amp; Padding 구조</div>
+
+  <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:10px;">
+    <!-- 다이어그램 -->
+    <div style="flex-shrink:0;">
+      <div class="mp-diagram">
+        <div class="mp-padding-box">
+          <div class="mp-content">Content</div>
+        </div>
+      </div>
+      <div class="mp-label">
+        <span><span class="mp-dot" style="background:#FDE8DE;border:0.5px solid #ccc;"></span>Margin (바깥 여백)</span>
+        <span><span class="mp-dot" style="background:#C7DEEF;"></span>Padding (안쪽 여백)</span>
+        <span><span class="mp-dot" style="background:#D4EAC8;"></span>Content</span>
+      </div>
+    </div>
+    <!-- 설명 -->
+    <div style="font-size:12px; color:#555; line-height:1.8;">
+      <b style="font-weight:500; color:#1a1a1a;">Margin</b>은 요소 <u>외부</u>의 투명한 여백.<br>인접 요소와의 간격을 결정하며 배경색이 적용되지 않음.<br><br>
+      <b style="font-weight:500; color:#1a1a1a;">Padding</b>은 요소 <u>내부</u>의 여백.<br>배경색이 채워지며 콘텐츠와 border 사이 공간을 만듦.
+    </div>
+  </div>
+
+  <!-- Margin 예제 -->
+  <div class="grid-4" style="margin-bottom:10px;">
+
+    <div class="card">
+      <div class="card-top">margin (전체)</div>
+      <div class="m-demo-wrap">
+        <div class="m-box" style="margin:14px;">내용</div>
+      </div>
+      <div class="card-prop" style="margin-top:7px;">margin: 14px</div>
+      <div class="card-desc">상하좌우 모두 동일하게 14px 여백.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">margin (상하/좌우)</div>
+      <div class="m-demo-wrap">
+        <div class="m-box" style="margin:16px 6px;">내용</div>
+      </div>
+      <div class="card-prop" style="margin-top:7px;">margin: 16px 6px</div>
+      <div class="card-desc">상하 16px, 좌우 6px. 값 2개.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">margin (방향별)</div>
+      <div class="m-demo-wrap">
+        <div class="m-box" style="margin-top:14px;margin-left:4px;">내용</div>
+      </div>
+      <div class="card-prop" style="margin-top:7px;">margin-top: 14px<br>margin-left: 4px</div>
+      <div class="card-desc">각 방향 top·right·bottom·left 개별 지정.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">margin: auto</div>
+      <div class="m-demo-wrap" style="padding:6px;">
+        <div class="m-box" style="width:60%;margin:0 auto;">auto</div>
+      </div>
+      <div class="card-prop" style="margin-top:7px;">margin: 0 auto</div>
+      <div class="card-desc">좌우 자동 계산으로 블록 요소 가운데 정렬.</div>
+    </div>
+
+  </div>
+
+  <!-- Padding 예제 -->
+  <div class="grid-4" style="margin-bottom:14px;">
+
+    <div class="card">
+      <div class="card-top">padding (전체)</div>
+      <div class="card-demo">
+        <div class="p-box" style="padding:14px;">내용</div>
+      </div>
+      <div class="card-prop">padding: 14px</div>
+      <div class="card-desc">상하좌우 동일 내부 여백 14px.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">padding (상하/좌우)</div>
+      <div class="card-demo">
+        <div class="p-box" style="padding:6px 20px;">내용</div>
+      </div>
+      <div class="card-prop">padding: 6px 20px</div>
+      <div class="card-desc">상하 6px, 좌우 20px. 버튼에 자주 사용.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">padding (방향별)</div>
+      <div class="card-demo">
+        <div class="p-box" style="padding-top:16px;padding-bottom:4px;padding-left:12px;">내용</div>
+      </div>
+      <div class="card-prop">padding-top: 16px<br>padding-bottom: 4px</div>
+      <div class="card-desc">각 방향 개별 지정. 4방향 각각 다르게 설정 가능.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">padding (4값)</div>
+      <div class="card-demo">
+        <div class="p-box" style="padding:14px 10px 4px 22px;">내용</div>
+      </div>
+      <div class="card-prop">padding: 14px 10px 4px 22px</div>
+      <div class="card-desc">순서: top → right → bottom → left (시계 방향).</div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <!-- ④ BOX-SHADOW -->
+  <div class="sec-label">④ Box-Shadow 그림자 효과</div>
+  <div class="grid-4">
+
+    <div class="card">
+      <div class="card-top">기본 offset 그림자</div>
+      <div class="sh-box sh1">box</div>
+      <div class="card-prop">box-shadow:<br>4px 4px 0px 0px #1a1a1a</div>
+      <div class="card-desc">x·y offset만 지정. blur 없는 선명한 하드 그림자.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">soft drop shadow</div>
+      <div class="sh-box sh2">box</div>
+      <div class="card-prop">box-shadow:<br>0 4px 12px rgba(0,0,0,0.18)</div>
+      <div class="card-desc">blur 값을 크게 줘 부드럽게 퍼지는 그림자. 카드에 가장 흔히 사용.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">ring / focus</div>
+      <div class="sh-box sh3">box</div>
+      <div class="card-prop">box-shadow:<br>0 0 0 3px #185FA5</div>
+      <div class="card-desc">blur·offset 모두 0. spread만 사용해 테두리 링 효과. 포커스 상태에 활용.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">inset (안쪽)</div>
+      <div class="sh-box sh4">box</div>
+      <div class="card-prop">box-shadow:<br>inset 0 3px 8px rgba(0,0,0,0.15)</div>
+      <div class="card-desc">inset 키워드로 요소 내부에 그림자. 눌린 버튼·입력창에 사용.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">다중 레이어</div>
+      <div class="sh-box sh5">box</div>
+      <div class="card-prop">box-shadow:<br>4px 4px 0 #D85A30,<br>8px 8px 0 #533AB7</div>
+      <div class="card-desc">쉼표로 여러 그림자 겹침. 팝아트 스타일 스택 효과.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">레이어드 elevation</div>
+      <div class="sh-box sh6">box</div>
+      <div class="card-prop">box-shadow:<br>0 2px 4px rgba(0,0,0,.10),<br>0 8px 24px rgba(0,0,0,.12)</div>
+      <div class="card-desc">가까운 그림자 + 먼 그림자. 자연스러운 높이감 표현.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">이중 링</div>
+      <div class="sh-box sh7">box</div>
+      <div class="card-prop">box-shadow:<br>0 0 0 2px #fff,<br>0 0 0 4px #3B6D11</div>
+      <div class="card-desc">흰 링 + 색 링을 겹쳐 선택 상태(selected)를 시각화.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">neumorphism</div>
+      <div class="sh-box sh8">box</div>
+      <div class="card-prop">box-shadow:<br>-4px -4px 8px rgba(255,255,255,.8),<br>4px 4px 8px rgba(0,0,0,.12)</div>
+      <div class="card-desc">밝은 그림자 + 어두운 그림자 조합. 뉴모피즘(입체) 디자인.</div>
+    </div>
+
+  </div>
+
+  <div class="pg">p.2 / 2</div>
+</div>
+
+</body>
+</html>
